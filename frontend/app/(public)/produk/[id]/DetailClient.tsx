@@ -11,7 +11,7 @@ export default function DetailProduk({ id }: { id: string }) {
 
   const [produk, setProduk] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [added, setAdded] = useState(false); // 🔔 notif
+  const [added, setAdded] = useState(false);
 
   useEffect(() => {
     if (!id) return;
