@@ -1,11 +1,25 @@
-version: "3.8"
-
 services:
+  mysql:
+    image: mysql:8.0
+    container_name: craftopia-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: craftopia_db
+      MYSQL_USER: craftopia
+      MYSQL_PASSWORD: craftopia123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
   backend:
     build: ./backend
     container_name: craftopia-backend
     ports:
       - "5000:5000"
+    depends_on:
+      - mysql
     env_file:
       - ./backend/.env
 
@@ -18,3 +32,6 @@ services:
       - backend
     env_file:
       - ./frontend/.env
+
+volumes:
+  mysql_data:
